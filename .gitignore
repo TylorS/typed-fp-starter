@@ -41,7 +41,7 @@ dist
 tmp
 .tmp
 .cache-loader
-example/**/*.__generated__.ts
+src/**/*.__generated__.ts
 
 # other stuff
 src/test.ts
