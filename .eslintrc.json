@@ -24,7 +24,7 @@
   "rules": {
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/no-namespace": "off",
-    "import/no-unresolved": "off",
+    "import/no-unresolved": "error",
     "no-implicit-globals": [
       "error"
     ],

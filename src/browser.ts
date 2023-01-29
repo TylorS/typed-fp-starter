@@ -1,3 +1,5 @@
+/// <reference types="@typed/framework" />
+
 import { pipe } from '@fp-ts/core/Function'
 import { runCallback } from '@typed/fx'
 import { render } from 'browser:./routes'
