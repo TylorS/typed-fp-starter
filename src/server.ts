@@ -1,21 +1,22 @@
 /// <reference types="@typed/framework" />
 
-import * as express from '@typed/framework/express'
+import { express, assets, run, listen } from '@typed/framework/express'
 import * as api from 'express:./application/api'
 import * as html from 'html:./index'
-import * as runtime from 'runtime:./routes'
+import * as routes from 'runtime:./routes'
+import httpServer from 'vavite/http-dev-server'
 
-const app = express.express()
+const app = express()
 
-if (import.meta.env.PROD) {
-  app.use(express.assets([html], { serveStatic: { immutable: true } }))
+if (!httpServer) {
+  app.use(assets(import.meta.url, [html]))
 }
 
 app.use('/api', api.router)
 
 app.get(
   '/*',
-  express.run(runtime, html, (d) => d.getElementById('application')),
+  run(routes, html, (d) => d.getElementById('application')),
 )
 
-express.listen(app, { port: 3000 }, (port) => console.log(`Server started on port ${port}`))
+listen(app, httpServer, { port: 3000 })
