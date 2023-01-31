@@ -7,10 +7,9 @@ export default defineConfig({
   plugins: [
     typed({
       sourceDirectory: join(__dirname, 'src'),
-      tsConfig: '../tsconfig.json',
-      serverFilePath: 'server.ts',
-      clientOutputDirectory: '../dist/client',
-      serverOutputDirectory: '../dist/server',
+      tsConfig: join(__dirname, 'tsconfig.json'),
+      clientOutputDirectory: join(__dirname, 'dist/client'),
+      serverOutputDirectory: join(__dirname, 'dist/server'),
       saveGeneratedModules: true,
     }),
   ],

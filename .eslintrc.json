@@ -24,7 +24,19 @@
   "rules": {
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/no-namespace": "off",
-    "import/no-unresolved": "error",
+    "import/no-unresolved": [
+      "error",
+      {
+        "ignore": [
+          "browser:.*",
+          "runtime:.*",
+          "api:.*",
+          "express:*",
+          "html:.*",
+          "typed:*"
+        ]
+      }
+    ],
     "no-implicit-globals": [
       "error"
     ],

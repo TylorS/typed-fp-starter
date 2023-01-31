@@ -2,7 +2,6 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "baseUrl": ".",
-    "composite": true,
     "declaration": true,
     "declarationMap": true,
     "downlevelIteration": true,
@@ -30,16 +29,22 @@
     "strictPropertyInitialization": true,
     "target": "ES2020",
     "types": [
-      "vite/client"
+      "vite/client",
+      "@typed/framework"
     ],
     "plugins": [
       {
         "name": "@effect/language-service"
       }
-    ]
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
   },
   "exclude": [
     "node_modules",
-    ".**/*/dist"
+    "dist"
   ]
 }
