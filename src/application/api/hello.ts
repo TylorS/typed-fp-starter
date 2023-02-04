@@ -6,7 +6,7 @@ export const route = Route('/hello/:name')
 
 export const hello = FetchHandler(route, (_, { name }) =>
   succeed(
-    new Response(`Hello, ${name}`, {
+    new Response(`Hello, ${decodeURIComponent(name)}`, {
       headers: {
         'content-type': 'text/plain',
       },
