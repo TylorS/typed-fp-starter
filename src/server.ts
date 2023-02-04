@@ -1,22 +1,25 @@
 /// <reference types="@typed/framework" />
 
-import { express, assets, run, listen } from '@typed/framework/express'
-import * as api from 'express:./application/api'
+import * as Effect from '@effect/io/Effect'
+import * as express from '@typed/framework/express'
+import * as api from 'api:./application/api'
 import * as html from 'html:./index'
-import * as routes from 'runtime:./routes'
-import httpServer from 'vavite/http-dev-server'
+import * as runtime from 'runtime:./routes'
+import httpDevServer from 'vavite/http-dev-server'
 
-const app = express()
+const main = express.app(
+  Effect.gen(function* ($) {
+    if (import.meta.env.PROD) {
+      yield* $(express.assets('/', import.meta.url, [html]))
+    }
 
-if (!httpServer) {
-  app.use(assets(import.meta.url, [html]))
-}
+    yield* $(express.api('/api', api.handlers))
+    yield* $(express.html('/', runtime, html, (d) => d.getElementById('application')))
 
-app.use('/api', api.router)
+    const { host, port } = yield* $(express.listen({ port: 3000, httpDevServer }))
 
-app.get(
-  '/*',
-  run(routes, html, (d) => d.getElementById('application')),
+    yield* $(Effect.logInfo(`Server listening at ${host}:${port}`))
+  }),
 )
 
-listen(app, httpServer, { port: 3000 })
+Effect.runFork(main)
